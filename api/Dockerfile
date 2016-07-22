@@ -16,8 +16,8 @@ RUN apt-get install -y nodejs
 
 COPY Gemfile* /tmp/
 WORKDIR /tmp
+RUN export RAILS_ENV=production
 RUN bundle install
-
 RUN cd ..
 ADD . /api
 WORKDIR /api
