@@ -1552,3 +1552,215 @@ Unpermitted parameters: confirm_success_url, registration
 Completed 200 OK in 296ms (Views: 0.3ms | ActiveRecord: 34.7ms)
 
 
+Started GET "/projects" for 10.16.20.22 at 2016-07-22 16:27:07 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#index as HTML
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 10.16.20.22 at 2016-07-22 16:27:07 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.0) lib/rack/cors.rb:80:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started GET "/favicon.ico" for 10.16.20.22 at 2016-07-22 16:27:08 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.0) lib/rack/cors.rb:80:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started POST "/auth/sign_in" for 10.16.20.27 at 2016-07-22 16:27:32 -0500
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+  Parameters: {"email"=>"test@test.com", "password"=>"[FILTERED]", "session"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE (email = 'test@test.com' AND provider='email') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 401 Unauthorized in 20ms (Views: 0.2ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:27:33 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 15ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/auth/sign_in" for 10.16.20.27 at 2016-07-22 16:28:02 -0500
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+  Parameters: {"email"=>"test@test.com", "password"=>"[FILTERED]", "session"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE (email = 'test@test.com' AND provider='email') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 401 Unauthorized in 3ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:28:02 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE "users"."provider" = $1 AND "users"."email" = $2[0m  [["provider", "email"], ["email", "test@test.com"]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "users" ("uid", "encrypted_password", "email", "tokens", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["uid", "test@test.com"], ["encrypted_password", "$2a$10$Gte9pOKz00B7WXHZkGxOj.WNtrKhzQofLbnGtzTa6gRK9CJ4APB9."], ["email", "test@test.com"], ["tokens", "{}"], ["created_at", 2016-07-22 21:28:02 UTC], ["updated_at", 2016-07-22 21:28:02 UTC]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:28:09 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/auth/sign_in" for 10.16.20.27 at 2016-07-22 16:28:13 -0500
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+  Parameters: {"email"=>"test@test.com", "password"=>"[FILTERED]", "session"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE (email = 'test@test.com' AND provider='email') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "{\"AIn17QEsgMytieAgeRXJ8g\":{\"token\":\"$2a$10$nXmL4migjWWKZZL7wXvWkuOwuTl6jGJXrv8pK1wDW2OwHF8ZYJL6y\",\"expiry\":1470432493}}"], ["updated_at", 2016-07-22 21:28:13 UTC], ["id", 2]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", 2016-07-22 21:28:13 UTC], ["last_sign_in_at", 2016-07-22 21:28:13 UTC], ["current_sign_in_ip", "10.16.20.27"], ["last_sign_in_ip", "10.16.20.27"], ["updated_at", 2016-07-22 21:28:13 UTC], ["id", 2]]
+  [1m[35m (3.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 175ms (Views: 0.2ms | ActiveRecord: 5.9ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:28:13 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/auth/sign_in" for 10.16.20.27 at 2016-07-22 16:28:22 -0500
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+  Parameters: {"email"=>"test@test.com", "password"=>"[FILTERED]", "session"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE (email = 'test@test.com' AND provider='email') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "{\"AIn17QEsgMytieAgeRXJ8g\":{\"token\":\"$2a$10$nXmL4migjWWKZZL7wXvWkuOwuTl6jGJXrv8pK1wDW2OwHF8ZYJL6y\",\"expiry\":1470432493},\"9WWcmzuxKSJTa2EiQBczyg\":{\"token\":\"$2a$10$MmpMEIeb7ZquT8rZa2/fJu1kkSKvEkm3R4btX3KBlFzaWQQ0OKADu\",\"expiry\":1470432502}}"], ["updated_at", 2016-07-22 21:28:22 UTC], ["id", 2]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["sign_in_count", 2], ["current_sign_in_at", 2016-07-22 21:28:22 UTC], ["updated_at", 2016-07-22 21:28:22 UTC], ["id", 2]]
+  [1m[35m (3.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 161ms (Views: 0.2ms | ActiveRecord: 5.6ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:28:22 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:28:49 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/auth/sign_in" for 10.16.20.27 at 2016-07-22 16:29:17 -0500
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+  Parameters: {"email"=>"test@test.com", "password"=>"[FILTERED]", "session"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE (email = 'test@test.com' AND provider='email') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "{\"AIn17QEsgMytieAgeRXJ8g\":{\"token\":\"$2a$10$nXmL4migjWWKZZL7wXvWkuOwuTl6jGJXrv8pK1wDW2OwHF8ZYJL6y\",\"expiry\":1470432493},\"9WWcmzuxKSJTa2EiQBczyg\":{\"token\":\"$2a$10$MmpMEIeb7ZquT8rZa2/fJu1kkSKvEkm3R4btX3KBlFzaWQQ0OKADu\",\"expiry\":1470432502},\"Gz5rIHO5RGT5crS1hTSFwA\":{\"token\":\"$2a$10$69kAtMQIJRA2P7G4wZNigOUoVkmrGt8bDYT3bXHc2YZqCEAd7kZEi\",\"expiry\":1470432557}}"], ["updated_at", 2016-07-22 21:29:17 UTC], ["id", 2]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "updated_at" = $4 WHERE "users"."id" = $5[0m  [["sign_in_count", 3], ["current_sign_in_at", 2016-07-22 21:29:17 UTC], ["last_sign_in_at", 2016-07-22 21:28:22 UTC], ["updated_at", 2016-07-22 21:29:17 UTC], ["id", 2]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 164ms (Views: 0.2ms | ActiveRecord: 3.2ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:29:18 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:29:20 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/auth/sign_in" for 10.16.20.27 at 2016-07-22 16:29:56 -0500
+Processing by DeviseTokenAuth::SessionsController#create as HTML
+  Parameters: {"email"=>"test@test.com", "password"=>"[FILTERED]", "session"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE (email = 'test@test.com' AND provider='email') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Unpermitted parameter: session
+Unpermitted parameter: session
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["tokens", "{\"AIn17QEsgMytieAgeRXJ8g\":{\"token\":\"$2a$10$nXmL4migjWWKZZL7wXvWkuOwuTl6jGJXrv8pK1wDW2OwHF8ZYJL6y\",\"expiry\":1470432493},\"9WWcmzuxKSJTa2EiQBczyg\":{\"token\":\"$2a$10$MmpMEIeb7ZquT8rZa2/fJu1kkSKvEkm3R4btX3KBlFzaWQQ0OKADu\",\"expiry\":1470432502},\"Gz5rIHO5RGT5crS1hTSFwA\":{\"token\":\"$2a$10$69kAtMQIJRA2P7G4wZNigOUoVkmrGt8bDYT3bXHc2YZqCEAd7kZEi\",\"expiry\":1470432557},\"zmyiFg0Qe99zOuxB1f5kfA\":{\"token\":\"$2a$10$aYMOdQaFITLX.ZghAlmwUOrfo/VV732gd4AtbvZawEb0/nRsCnSfK\",\"expiry\":1470432596}}"], ["updated_at", 2016-07-22 21:29:56 UTC], ["id", 2]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "updated_at" = $4 WHERE "users"."id" = $5[0m  [["sign_in_count", 4], ["current_sign_in_at", 2016-07-22 21:29:56 UTC], ["last_sign_in_at", 2016-07-22 21:29:17 UTC], ["updated_at", 2016-07-22 21:29:56 UTC], ["id", 2]]
+  [1m[35m (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 172ms (Views: 0.2ms | ActiveRecord: 5.5ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 16:29:56 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."uid" = $1 LIMIT $2[0m  [["uid", "undefined"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms)
+
+
