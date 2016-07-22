@@ -1,0 +1,11 @@
+version: '2'
+services:
+  db:
+    build: ./database_image
+  api:
+    build: ./
+    command: rails s -p 8000 -b 0.0.0.0
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

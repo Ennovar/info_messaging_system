@@ -1150,3 +1150,31 @@ Processing by ProjectsController#index as HTML
 Completed 200 OK in 50ms (Views: 2.8ms | ActiveRecord: 6.8ms)
 
 
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:35:03 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:43:38 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:44:16 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:44:38 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.5ms)
+
+
