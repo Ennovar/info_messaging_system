@@ -1,0 +1,1144 @@
+  [1m[35m (23.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (32.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1471099545973367310);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateProjects (20160722165049)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (18.4ms)[0m  [1m[35mCREATE TABLE "projects" ("id" serial primary key, "title" character varying, "project_hash" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20160722165049"]]
+  [1m[35m (15.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMessages (20160722165144)
+  [1m[35m (15.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE TABLE "messages" ("id" serial primary key, "title" character varying, "body" text, "project_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20160722165144"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2016-07-22 16:51:50 UTC], ["updated_at", 2016-07-22 16:51:50 UTC]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(1471099545973367310)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (3.2ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'messages'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'projects'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "projects" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "something"], ["created_at", 2016-07-22 16:53:09 UTC], ["updated_at", 2016-07-22 16:53:09 UTC]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "messages" ("title", "body", "project_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Server ERRROR"], ["body", "asdf"], ["project_id", 1], ["created_at", 2016-07-22 16:53:49 UTC], ["updated_at", 2016-07-22 16:53:49 UTC]]
+  [1m[35m (15.9ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for 127.0.0.1 at 2016-07-22 11:54:13 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (10.3ms)
+Completed 200 OK in 45ms (Views: 37.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-22 11:54:16 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (4.2ms)
+Completed 200 OK in 10ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts" for 127.0.0.1 at 2016-07-22 11:54:17 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/posts"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started GET "/projects/" for 127.0.0.1 at 2016-07-22 11:54:17 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 14ms (Views: 5.8ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/projects/" for 127.0.0.1 at 2016-07-22 11:54:17 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects/1" for 127.0.0.1 at 2016-07-22 11:54:20 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.4ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 73ms (Views: 48.4ms | ActiveRecord: 13.7ms)
+
+
+Started GET "/projects/1" for 127.0.0.1 at 2016-07-22 11:54:20 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.6ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 6ms (Views: 2.9ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/appcache/manifest.appcache" for 10.16.20.22 at 2016-07-22 11:54:27 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/appcache/manifest.appcache"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started GET "/appcache/manifest.html" for 10.16.20.22 at 2016-07-22 11:54:27 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/appcache/manifest.html"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started GET "/" for 10.16.20.22 at 2016-07-22 11:54:32 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (3.3ms)
+Completed 200 OK in 7ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.16.20.22 at 2016-07-22 11:54:34 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (3.2ms)
+Completed 200 OK in 8ms (Views: 5.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.16.20.22 at 2016-07-22 11:54:38 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (3.3ms)
+Completed 200 OK in 7ms (Views: 5.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts/categories/1" for 10.16.20.22 at 2016-07-22 11:54:38 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/posts/categories/1"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started GET "/projects" for 10.16.20.22 at 2016-07-22 11:54:39 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 11:55:19 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/favicon.ico" for 10.16.20.27 at 2016-07-22 11:55:19 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 11:57:05 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 11:57:10 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 12:04:23 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 12:08:24 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 12:08:26 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 12:12:04 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.1ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/favicon.ico" for 10.16.20.27 at 2016-07-22 12:12:04 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 13:42:02 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 109ms (Views: 69.4ms | ActiveRecord: 9.0ms)
+
+
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 13:45:54 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 39ms (Views: 18.2ms | ActiveRecord: 7.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-22 13:49:38 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/t332j375/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (4.3ms)
+Completed 200 OK in 60ms (Views: 9.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2016-07-22 13:49:38 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+rack-cors (0.4.0) lib/rack/cors.rb:80:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+puma (3.5.2) lib/puma/configuration.rb:225:in `call'
+puma (3.5.2) lib/puma/server.rb:569:in `handle_request'
+puma (3.5.2) lib/puma/server.rb:406:in `process_client'
+puma (3.5.2) lib/puma/server.rb:271:in `block in run'
+puma (3.5.2) lib/puma/thread_pool.rb:116:in `block in spawn_thread'
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 13:49:43 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 14ms (Views: 6.6ms | ActiveRecord: 3.3ms)
+
+
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "projects" ("title", "project_hash", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Austins Project"], ["project_hash", "LOgGMH5TRdA"], ["created_at", 2016-07-22 18:52:30 UTC], ["updated_at", 2016-07-22 18:52:30 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "messages" ("title", "body", "project_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "some message title"], ["body", "body"], ["project_id", 2], ["created_at", 2016-07-22 18:53:32 UTC], ["updated_at", 2016-07-22 18:53:32 UTC]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 14:00:00 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 32ms (Views: 20.2ms | ActiveRecord: 4.6ms)
+
+
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 14:01:31 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/projects/1" for 10.16.20.27 at 2016-07-22 14:01:37 -0500
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:02:05 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:02:59 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:04:36 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 10ms (Views: 0.5ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:05:19 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:05:23 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:06:34 -0500
+Processing by ProjectsController#index as HTML
+*** BEGIN RAW REQUEST HEADERS ***
+HEADER KEY: rack.version
+HEADER VAL: [1, 3]
+HEADER KEY: rack.errors
+HEADER VAL: #<IO:0x007fc6ba09eb28>
+HEADER KEY: rack.multithread
+HEADER VAL: true
+HEADER KEY: rack.multiprocess
+HEADER VAL: false
+HEADER KEY: rack.run_once
+HEADER VAL: false
+HEADER KEY: SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: QUERY_STRING
+HEADER VAL: 
+HEADER KEY: SERVER_PROTOCOL
+HEADER VAL: HTTP/1.1
+HEADER KEY: SERVER_SOFTWARE
+HEADER VAL: puma 3.5.2 Amateur Raccoon Rocketry
+HEADER KEY: GATEWAY_INTERFACE
+HEADER VAL: CGI/1.2
+HEADER KEY: REQUEST_METHOD
+HEADER VAL: GET
+HEADER KEY: REQUEST_PATH
+HEADER VAL: /projects
+HEADER KEY: REQUEST_URI
+HEADER VAL: /projects
+HEADER KEY: HTTP_VERSION
+HEADER VAL: HTTP/1.1
+HEADER KEY: HTTP_HOST
+HEADER VAL: 10.16.20.22:3000
+HEADER KEY: HTTP_CONNECTION
+HEADER VAL: keep-alive
+HEADER KEY: HTTP_CACHE_CONTROL
+HEADER VAL: max-age=0
+HEADER KEY: HTTP_ACCEPT
+HEADER VAL: application/json, text/plain, */*
+HEADER KEY: HTTP_ORIGIN
+HEADER VAL: http://localhost:8080
+HEADER KEY: HTTP_PROJECT_HASH
+HEADER VAL: LOgGMH5TRdA
+HEADER KEY: HTTP_USER_AGENT
+HEADER VAL: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36
+HEADER KEY: HTTP_REFERER
+HEADER VAL: http://localhost:8080/
+HEADER KEY: HTTP_ACCEPT_ENCODING
+HEADER VAL: gzip, deflate, sdch
+HEADER KEY: HTTP_ACCEPT_LANGUAGE
+HEADER VAL: en-US,en;q=0.8
+HEADER KEY: HTTP_IF_NONE_MATCH
+HEADER VAL: W/"91740505854ec5c64f0b76b7a0d4def0"
+HEADER KEY: SERVER_NAME
+HEADER VAL: 10.16.20.22
+HEADER KEY: SERVER_PORT
+HEADER VAL: 3000
+HEADER KEY: PATH_INFO
+HEADER VAL: /projects
+HEADER KEY: REMOTE_ADDR
+HEADER VAL: 10.16.20.27
+HEADER KEY: puma.socket
+HEADER VAL: #<TCPSocket:0x007fc6ba70cdc0>
+HEADER KEY: rack.hijack?
+HEADER VAL: true
+HEADER KEY: rack.hijack
+HEADER VAL: #<Puma::Client:0x007fc6ba70cd98>
+HEADER KEY: rack.input
+HEADER VAL: #<Puma::NullIO:0x007fc6ba22c760>
+HEADER KEY: rack.url_scheme
+HEADER VAL: http
+HEADER KEY: rack.after_reply
+HEADER VAL: []
+HEADER KEY: puma.config
+HEADER VAL: #<Puma::Configuration:0x007fc6bac194d0>
+HEADER KEY: action_dispatch.parameter_filter
+HEADER VAL: [:password]
+HEADER KEY: action_dispatch.redirect_filter
+HEADER VAL: []
+HEADER KEY: action_dispatch.secret_token
+HEADER VAL: 
+HEADER KEY: action_dispatch.secret_key_base
+HEADER VAL: d112354781ddae20bd3332a21799a88eafa4e20dae782b9f2546b028ed1abe66390d580a6c2f94f94f132e755c42eee4896eb46fcf459bdb3c2acde6922d20e0
+HEADER KEY: action_dispatch.show_exceptions
+HEADER VAL: true
+HEADER KEY: action_dispatch.show_detailed_exceptions
+HEADER VAL: true
+HEADER KEY: action_dispatch.logger
+HEADER VAL: #<ActiveSupport::Logger:0x007fc6bb2e3950>
+HEADER KEY: action_dispatch.backtrace_cleaner
+HEADER VAL: #<Rails::BacktraceCleaner:0x007fc6bbc4ee90>
+HEADER KEY: action_dispatch.key_generator
+HEADER VAL: #<ActiveSupport::CachingKeyGenerator:0x007fc6ba6261b8>
+HEADER KEY: action_dispatch.http_auth_salt
+HEADER VAL: http authentication
+HEADER KEY: action_dispatch.signed_cookie_salt
+HEADER VAL: signed cookie
+HEADER KEY: action_dispatch.encrypted_cookie_salt
+HEADER VAL: encrypted cookie
+HEADER KEY: action_dispatch.encrypted_signed_cookie_salt
+HEADER VAL: signed encrypted cookie
+HEADER KEY: action_dispatch.cookies_serializer
+HEADER VAL: 
+HEADER KEY: action_dispatch.cookies_digest
+HEADER VAL: 
+HEADER KEY: action_dispatch.routes
+HEADER VAL: #<ActionDispatch::Routing::RouteSet:0x007fc6ba3e5868>
+HEADER KEY: ROUTES_70245752450100_SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: ORIGINAL_FULLPATH
+HEADER VAL: /projects
+HEADER KEY: ORIGINAL_SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: rack.cors
+HEADER VAL: #<Rack::Cors::Result:0x007fc6bbdd7fa0>
+HEADER KEY: action_dispatch.request_id
+HEADER VAL: a88a29c0-0cd0-4716-add6-8d072ed79d2e
+HEADER KEY: action_dispatch.remote_ip
+HEADER VAL: 10.16.20.27
+HEADER KEY: action_dispatch.request.path_parameters
+HEADER VAL: {:controller=>"projects", :action=>"index"}
+HEADER KEY: action_controller.instance
+HEADER VAL: #<ProjectsController:0x007fc6bbd756c0>
+HEADER KEY: action_dispatch.request.content_type
+HEADER VAL: 
+HEADER KEY: action_dispatch.request.request_parameters
+HEADER VAL: {}
+HEADER KEY: rack.request.query_string
+HEADER VAL: 
+HEADER KEY: rack.request.query_hash
+HEADER VAL: {}
+HEADER KEY: action_dispatch.request.query_parameters
+HEADER VAL: {}
+HEADER KEY: action_dispatch.request.parameters
+HEADER VAL: {"controller"=>"projects", "action"=>"index"}
+HEADER KEY: action_dispatch.request.formats
+HEADER VAL: [#<Mime::Type:0x007fc6bb98c8d8 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html", @hash=3302327603549387839>]
+*** END RAW REQUEST HEADERS ***
+  [1m[36mProject Load (1.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 57ms (Views: 0.6ms | ActiveRecord: 13.2ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:06:36 -0500
+Processing by ProjectsController#index as */*
+*** BEGIN RAW REQUEST HEADERS ***
+HEADER KEY: rack.version
+HEADER VAL: [1, 3]
+HEADER KEY: rack.errors
+HEADER VAL: #<IO:0x007fc6ba09eb28>
+HEADER KEY: rack.multithread
+HEADER VAL: true
+HEADER KEY: rack.multiprocess
+HEADER VAL: false
+HEADER KEY: rack.run_once
+HEADER VAL: false
+HEADER KEY: SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: QUERY_STRING
+HEADER VAL: 
+HEADER KEY: SERVER_PROTOCOL
+HEADER VAL: HTTP/1.1
+HEADER KEY: SERVER_SOFTWARE
+HEADER VAL: puma 3.5.2 Amateur Raccoon Rocketry
+HEADER KEY: GATEWAY_INTERFACE
+HEADER VAL: CGI/1.2
+HEADER KEY: REQUEST_METHOD
+HEADER VAL: GET
+HEADER KEY: REQUEST_PATH
+HEADER VAL: /projects
+HEADER KEY: REQUEST_URI
+HEADER VAL: /projects
+HEADER KEY: HTTP_VERSION
+HEADER VAL: HTTP/1.1
+HEADER KEY: HTTP_HOST
+HEADER VAL: localhost:3000
+HEADER KEY: HTTP_CONNECTION
+HEADER VAL: keep-alive
+HEADER KEY: HTTP_CACHE_CONTROL
+HEADER VAL: no-cache
+HEADER KEY: HTTP_PROJECT_HASH
+HEADER VAL: 3eazslUzUBY
+HEADER KEY: HTTP_USER_AGENT
+HEADER VAL: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Postman/4.4.2 Chrome/51.0.2704.103 Electron/1.2.5 Safari/537.36
+HEADER KEY: HTTP_POSTMAN_TOKEN
+HEADER VAL: 337cbbb7-f588-9e5f-9f47-f999ddb8fdad
+HEADER KEY: HTTP_ACCEPT
+HEADER VAL: */*
+HEADER KEY: HTTP_ACCEPT_ENCODING
+HEADER VAL: gzip, deflate
+HEADER KEY: HTTP_ACCEPT_LANGUAGE
+HEADER VAL: en-US
+HEADER KEY: SERVER_NAME
+HEADER VAL: localhost
+HEADER KEY: SERVER_PORT
+HEADER VAL: 3000
+HEADER KEY: PATH_INFO
+HEADER VAL: /projects
+HEADER KEY: REMOTE_ADDR
+HEADER VAL: 127.0.0.1
+HEADER KEY: puma.socket
+HEADER VAL: #<TCPSocket:0x007fc6bbcce2f8>
+HEADER KEY: rack.hijack?
+HEADER VAL: true
+HEADER KEY: rack.hijack
+HEADER VAL: #<Puma::Client:0x007fc6bbcce2d0>
+HEADER KEY: rack.input
+HEADER VAL: #<Puma::NullIO:0x007fc6ba22c760>
+HEADER KEY: rack.url_scheme
+HEADER VAL: http
+HEADER KEY: rack.after_reply
+HEADER VAL: []
+HEADER KEY: puma.config
+HEADER VAL: #<Puma::Configuration:0x007fc6bac194d0>
+HEADER KEY: action_dispatch.parameter_filter
+HEADER VAL: [:password]
+HEADER KEY: action_dispatch.redirect_filter
+HEADER VAL: []
+HEADER KEY: action_dispatch.secret_token
+HEADER VAL: 
+HEADER KEY: action_dispatch.secret_key_base
+HEADER VAL: d112354781ddae20bd3332a21799a88eafa4e20dae782b9f2546b028ed1abe66390d580a6c2f94f94f132e755c42eee4896eb46fcf459bdb3c2acde6922d20e0
+HEADER KEY: action_dispatch.show_exceptions
+HEADER VAL: true
+HEADER KEY: action_dispatch.show_detailed_exceptions
+HEADER VAL: true
+HEADER KEY: action_dispatch.logger
+HEADER VAL: #<ActiveSupport::Logger:0x007fc6bb2e3950>
+HEADER KEY: action_dispatch.backtrace_cleaner
+HEADER VAL: #<Rails::BacktraceCleaner:0x007fc6bbc4ee90>
+HEADER KEY: action_dispatch.key_generator
+HEADER VAL: #<ActiveSupport::CachingKeyGenerator:0x007fc6ba6261b8>
+HEADER KEY: action_dispatch.http_auth_salt
+HEADER VAL: http authentication
+HEADER KEY: action_dispatch.signed_cookie_salt
+HEADER VAL: signed cookie
+HEADER KEY: action_dispatch.encrypted_cookie_salt
+HEADER VAL: encrypted cookie
+HEADER KEY: action_dispatch.encrypted_signed_cookie_salt
+HEADER VAL: signed encrypted cookie
+HEADER KEY: action_dispatch.cookies_serializer
+HEADER VAL: 
+HEADER KEY: action_dispatch.cookies_digest
+HEADER VAL: 
+HEADER KEY: action_dispatch.routes
+HEADER VAL: #<ActionDispatch::Routing::RouteSet:0x007fc6ba3e5868>
+HEADER KEY: ROUTES_70245752450100_SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: ORIGINAL_FULLPATH
+HEADER VAL: /projects
+HEADER KEY: ORIGINAL_SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: rack.cors
+HEADER VAL: #<Rack::Cors::Result:0x007fc6bbccdba0>
+HEADER KEY: action_dispatch.request_id
+HEADER VAL: e81b2280-2933-42fc-87ff-1ac787054403
+HEADER KEY: action_dispatch.remote_ip
+HEADER VAL: 127.0.0.1
+HEADER KEY: action_dispatch.request.path_parameters
+HEADER VAL: {:controller=>"projects", :action=>"index"}
+HEADER KEY: action_controller.instance
+HEADER VAL: #<ProjectsController:0x007fc6bac2a910>
+HEADER KEY: action_dispatch.request.content_type
+HEADER VAL: 
+HEADER KEY: action_dispatch.request.request_parameters
+HEADER VAL: {}
+HEADER KEY: rack.request.query_string
+HEADER VAL: 
+HEADER KEY: rack.request.query_hash
+HEADER VAL: {}
+HEADER KEY: action_dispatch.request.query_parameters
+HEADER VAL: {}
+HEADER KEY: action_dispatch.request.parameters
+HEADER VAL: {"controller"=>"projects", "action"=>"index"}
+HEADER KEY: action_dispatch.request.accepts
+HEADER VAL: [#<Mime::Type:0x007fc6bac299c0 @synonyms=[], @symbol=nil, @string="*/*", @hash=-98585259247670545>]
+HEADER KEY: action_dispatch.request.formats
+HEADER VAL: [#<Mime::Type:0x007fc6bac299c0 @synonyms=[], @symbol=nil, @string="*/*", @hash=-98585259247670545>]
+*** END RAW REQUEST HEADERS ***
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 9ms (Views: 0.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:06:39 -0500
+Processing by ProjectsController#index as HTML
+*** BEGIN RAW REQUEST HEADERS ***
+HEADER KEY: rack.version
+HEADER VAL: [1, 3]
+HEADER KEY: rack.errors
+HEADER VAL: #<IO:0x007fc6ba09eb28>
+HEADER KEY: rack.multithread
+HEADER VAL: true
+HEADER KEY: rack.multiprocess
+HEADER VAL: false
+HEADER KEY: rack.run_once
+HEADER VAL: false
+HEADER KEY: SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: QUERY_STRING
+HEADER VAL: 
+HEADER KEY: SERVER_PROTOCOL
+HEADER VAL: HTTP/1.1
+HEADER KEY: SERVER_SOFTWARE
+HEADER VAL: puma 3.5.2 Amateur Raccoon Rocketry
+HEADER KEY: GATEWAY_INTERFACE
+HEADER VAL: CGI/1.2
+HEADER KEY: REQUEST_METHOD
+HEADER VAL: GET
+HEADER KEY: REQUEST_PATH
+HEADER VAL: /projects
+HEADER KEY: REQUEST_URI
+HEADER VAL: /projects
+HEADER KEY: HTTP_VERSION
+HEADER VAL: HTTP/1.1
+HEADER KEY: HTTP_HOST
+HEADER VAL: 10.16.20.22:3000
+HEADER KEY: HTTP_CONNECTION
+HEADER VAL: keep-alive
+HEADER KEY: HTTP_CACHE_CONTROL
+HEADER VAL: max-age=0
+HEADER KEY: HTTP_ACCEPT
+HEADER VAL: application/json, text/plain, */*
+HEADER KEY: HTTP_ORIGIN
+HEADER VAL: http://localhost:8080
+HEADER KEY: HTTP_PROJECT_HASH
+HEADER VAL: LOgGMH5TRdA
+HEADER KEY: HTTP_USER_AGENT
+HEADER VAL: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36
+HEADER KEY: HTTP_REFERER
+HEADER VAL: http://localhost:8080/
+HEADER KEY: HTTP_ACCEPT_ENCODING
+HEADER VAL: gzip, deflate, sdch
+HEADER KEY: HTTP_ACCEPT_LANGUAGE
+HEADER VAL: en-US,en;q=0.8
+HEADER KEY: HTTP_IF_NONE_MATCH
+HEADER VAL: W/"91740505854ec5c64f0b76b7a0d4def0"
+HEADER KEY: SERVER_NAME
+HEADER VAL: 10.16.20.22
+HEADER KEY: SERVER_PORT
+HEADER VAL: 3000
+HEADER KEY: PATH_INFO
+HEADER VAL: /projects
+HEADER KEY: REMOTE_ADDR
+HEADER VAL: 10.16.20.27
+HEADER KEY: puma.socket
+HEADER VAL: #<TCPSocket:0x007fc6ba70cdc0>
+HEADER KEY: rack.hijack?
+HEADER VAL: true
+HEADER KEY: rack.hijack
+HEADER VAL: #<Puma::Client:0x007fc6ba70cd98>
+HEADER KEY: rack.input
+HEADER VAL: #<Puma::NullIO:0x007fc6ba22c760>
+HEADER KEY: rack.url_scheme
+HEADER VAL: http
+HEADER KEY: rack.after_reply
+HEADER VAL: []
+HEADER KEY: puma.config
+HEADER VAL: #<Puma::Configuration:0x007fc6bac194d0>
+HEADER KEY: action_dispatch.parameter_filter
+HEADER VAL: [:password]
+HEADER KEY: action_dispatch.redirect_filter
+HEADER VAL: []
+HEADER KEY: action_dispatch.secret_token
+HEADER VAL: 
+HEADER KEY: action_dispatch.secret_key_base
+HEADER VAL: d112354781ddae20bd3332a21799a88eafa4e20dae782b9f2546b028ed1abe66390d580a6c2f94f94f132e755c42eee4896eb46fcf459bdb3c2acde6922d20e0
+HEADER KEY: action_dispatch.show_exceptions
+HEADER VAL: true
+HEADER KEY: action_dispatch.show_detailed_exceptions
+HEADER VAL: true
+HEADER KEY: action_dispatch.logger
+HEADER VAL: #<ActiveSupport::Logger:0x007fc6bb2e3950>
+HEADER KEY: action_dispatch.backtrace_cleaner
+HEADER VAL: #<Rails::BacktraceCleaner:0x007fc6bbc4ee90>
+HEADER KEY: action_dispatch.key_generator
+HEADER VAL: #<ActiveSupport::CachingKeyGenerator:0x007fc6ba6261b8>
+HEADER KEY: action_dispatch.http_auth_salt
+HEADER VAL: http authentication
+HEADER KEY: action_dispatch.signed_cookie_salt
+HEADER VAL: signed cookie
+HEADER KEY: action_dispatch.encrypted_cookie_salt
+HEADER VAL: encrypted cookie
+HEADER KEY: action_dispatch.encrypted_signed_cookie_salt
+HEADER VAL: signed encrypted cookie
+HEADER KEY: action_dispatch.cookies_serializer
+HEADER VAL: 
+HEADER KEY: action_dispatch.cookies_digest
+HEADER VAL: 
+HEADER KEY: action_dispatch.routes
+HEADER VAL: #<ActionDispatch::Routing::RouteSet:0x007fc6ba3e5868>
+HEADER KEY: ROUTES_70245752450100_SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: ORIGINAL_FULLPATH
+HEADER VAL: /projects
+HEADER KEY: ORIGINAL_SCRIPT_NAME
+HEADER VAL: 
+HEADER KEY: rack.cors
+HEADER VAL: #<Rack::Cors::Result:0x007fc6bbc9c7d0>
+HEADER KEY: action_dispatch.request_id
+HEADER VAL: 1be10623-d640-420c-88df-cf077d7e88de
+HEADER KEY: action_dispatch.remote_ip
+HEADER VAL: 10.16.20.27
+HEADER KEY: action_dispatch.request.path_parameters
+HEADER VAL: {:controller=>"projects", :action=>"index"}
+HEADER KEY: action_controller.instance
+HEADER VAL: #<ProjectsController:0x007fc6bbc95778>
+HEADER KEY: action_dispatch.request.content_type
+HEADER VAL: 
+HEADER KEY: action_dispatch.request.request_parameters
+HEADER VAL: {}
+HEADER KEY: rack.request.query_string
+HEADER VAL: 
+HEADER KEY: rack.request.query_hash
+HEADER VAL: {}
+HEADER KEY: action_dispatch.request.query_parameters
+HEADER VAL: {}
+HEADER KEY: action_dispatch.request.parameters
+HEADER VAL: {"controller"=>"projects", "action"=>"index"}
+HEADER KEY: action_dispatch.request.formats
+HEADER VAL: [#<Mime::Type:0x007fc6bb98c8d8 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html", @hash=3302327603549387839>]
+*** END RAW REQUEST HEADERS ***
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 7ms (Views: 0.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:07:27 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.7ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 23ms (Views: 0.5ms | ActiveRecord: 5.5ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:07:49 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:07:56 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:08:02 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.6ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 32ms (Views: 1.8ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:08:10 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" IS NULL ORDER BY "projects"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Completed 200 OK in 27ms (Views: 0.7ms | ActiveRecord: 10.2ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:08:40 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (39.7ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "3eazslUzUBY"], ["LIMIT", 1]]
+Completed 200 OK in 55ms (Views: 0.2ms | ActiveRecord: 43.6ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:08:54 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 7ms (Views: 6.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:09:01 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.6ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:09:35 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 2], ["LIMIT", 1]]
+Completed 200 OK in 33ms (Views: 16.7ms | ActiveRecord: 4.8ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:11:02 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 2.5ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[35m (151.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "info_messages_development"[0m
+  [1m[35m (115.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "info_messages_test"[0m
+  [1m[35m (125.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1471099545973367310);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateProjects (20160722165049)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (19.5ms)[0m  [1m[35mCREATE TABLE "projects" ("id" serial primary key, "title" character varying, "project_hash" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20160722165049"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMessages (20160722165144)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "messages" ("id" serial primary key, "title" character varying, "body" text, "project_id" integer, "active" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20160722165144"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2016-07-22 19:12:12 UTC], ["updated_at", 2016-07-22 19:12:12 UTC]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(1471099545973367310)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'messages'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'projects'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:12:37 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+Completed 200 OK in 15ms (Views: 0.3ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:13:19 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:13:24 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 3.6ms)
+
+
+  
+NoMethodError (undefined method `show' for nil:NilClass):
+  
+app/controllers/projects_controller.rb:9:in `index'
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:13:37 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.3ms)
+
+
+  
+NoMethodError (undefined method `show' for nil:NilClass):
+  
+app/controllers/projects_controller.rb:9:in `index'
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:13:45 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 0.4ms)
+
+
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "projects" ("title", "project_hash", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Austins Stuff"], ["project_hash", "+18Cu8BVvMA"], ["created_at", 2016-07-22 19:14:02 UTC], ["updated_at", 2016-07-22 19:14:02 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "messages" ("title", "body", "project_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "asdf"], ["body", "hello"], ["project_id", 1], ["created_at", 2016-07-22 19:14:26 UTC], ["updated_at", 2016-07-22 19:14:26 UTC]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:14:34 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 13ms (Views: 5.7ms | ActiveRecord: 3.4ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:15:21 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (1.0ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 1.0ms)
+
+
+  
+NoMethodError (undefined method `show' for #<Project:0x007f84825969c0>):
+  
+app/controllers/projects_controller.rb:9:in `index'
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:15:53 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (1.7ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 65ms (ActiveRecord: 19.3ms)
+
+
+  
+NoMethodError (undefined method `active' for #<Project:0x007f84811fd120>
+Did you mean?  acts_like?):
+  
+app/models/project.rb:12:in `show'
+app/controllers/projects_controller.rb:9:in `index'
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:16:16 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (1.5ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 65ms (Views: 0.1ms | ActiveRecord: 15.2ms)
+
+
+  [1m[36mMessage Load (0.4ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" ORDER BY "messages"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "messages" SET "active" = $1, "updated_at" = $2 WHERE "messages"."id" = $3[0m  [["active", true], ["updated_at", 2016-07-22 19:16:37 UTC], ["id", 1]]
+  [1m[35m (5.8ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:16:44 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 53ms (Views: 1.0ms | ActiveRecord: 7.4ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:16:55 -0500
+Processing by ProjectsController#index as */*
+  [1m[36mProject Load (0.9ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 70ms (Views: 0.6ms | ActiveRecord: 24.2ms)
+
+
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:17:02 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.3ms)
+
+
+  
+NoMethodError (undefined method `show' for nil:NilClass):
+  
+app/controllers/projects_controller.rb:9:in `index'
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:17:25 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "LOgGMH5TRdA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.3ms)
+
+
+  
+NoMethodError (undefined method `show' for nil:NilClass):
+  
+app/controllers/projects_controller.rb:9:in `index'
+Started GET "/projects" for 10.16.20.27 at 2016-07-22 14:18:16 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT  "projects".* FROM "projects" WHERE "projects"."project_hash" = $1 ORDER BY "projects"."id" ASC LIMIT $2[0m  [["project_hash", "+18Cu8BVvMA"], ["LIMIT", 1]]
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."project_id" = $1 LIMIT $2[0m  [["project_id", 1], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:23:28 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:23:28 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:23:29 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:23:29 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 2ms (Views: 0.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:23:30 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2016-07-22 14:23:30 -0500
+Processing by ProjectsController#index as HTML
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.3ms)
+
+
