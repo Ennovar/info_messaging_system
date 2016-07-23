@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :update, :destroy]
-
+  before_action :authenticate_user!	, only: [:show, :create, :update, :destroy]
   # GET /projects
   def index
     if request.headers["HTTP_PROJECT_HASH"]
@@ -8,8 +8,12 @@ class ProjectsController < ApplicationController
       @project = set_project
       render json: @project.show
     else
-      @projects = Project.all
-      render json: @projects
+      if user_signed_in?
+        @projects = Project.all
+        render json: @projects
+      else
+        render json: {message: 'User not authenticated'}
+      end
     end
   end
 
