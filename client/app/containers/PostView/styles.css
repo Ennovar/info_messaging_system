@@ -1,0 +1,53 @@
+.cell {
+  background-color: white;
+  border: 1px solid #eeeeee;
+  padding: 8px;
+  margin: 8px;
+  min-height: 80px;
+}
+.cell:hover {
+  box-shadow: 1px 1px 1px #dddddd;
+}
+.cell > .title {
+  text-align: center;
+}
+.body {
+  padding: 25px;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+.image {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  height: 600px;
+  background-size: contain;
+  overflow: hidden;
+}
+
+.bounds {
+  width: 86.4%;
+  height: 76.9%;
+  margin: 23.2% 0 0 6.4%;
+  overflow: scroll;
+}
+
+.title {
+  width: 96%;
+  margin-left: 2%;
+  text-align: center;
+}
+
+.preview {
+  margin: 5px 0 0 2.75%;
+}
+
+
+.text {
+  width: 96%;
+  margin-top: 5px;
+  margin-left: 2%;
+}

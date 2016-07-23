@@ -1,0 +1,14 @@
+
+> react-boilerplate@3.0.0 start /home/builduser/cms-tool/client
+> cross-env NODE_ENV=development node server
+
+Server started ✓
+
+Access URLs:
+-----------------------------------
+Localhost: http://localhost:3000
+      LAN: http://10.16.20.190:3000
+-----------------------------------
+Press CTRL-C to stop
+    
+webpack built 9d789aced560f4122b06 in 8071ms

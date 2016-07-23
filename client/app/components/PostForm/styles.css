@@ -1,0 +1,42 @@
+.postForm {
+
+}
+#textedit {
+  min-height: 300px;
+}
+
+.file {
+  margin-bottom: 10px;
+}
+
+.image {
+  height: 500px;
+  width: 252px;
+  margin: 0 auto;
+  background-size: contain;
+  overflow: hidden;
+}
+
+.preview {
+  margin: 5px 0 0 5px;
+}
+
+.title {
+  width: 206px;
+  margin-top: 5px;
+  margin-left: 5px;
+  text-align: center;
+}
+
+.markdown {
+  width: 200px;
+  margin: 8px 0 0 5px;
+}
+
+.bounds {
+  width: 216px;
+  height: 384px;
+  margin-left: 16px;
+  margin-top: 58px;
+  overflow: scroll;
+}

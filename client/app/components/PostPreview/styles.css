@@ -1,0 +1,55 @@
+
+.image {
+  width: 400px;
+  height: 800px;
+  margin: 5px auto;
+  background-size: contain;
+  overflow: hidden;
+}
+
+/* For devices 400px and larger: */
+@media only screen and (min-width: 1024px) {
+  .image {
+      width: 248px;
+      height: 500px;
+  }
+}
+
+/* For devices 768px and smaller: */
+@media only screen and (max-width: 768px) {
+  .image {
+      width: 198px;
+      height: 400px;
+  }
+}
+
+/* For devices 425px and smaller: */
+@media only screen and (max-width: 425px) {
+  .image {
+      width: 149px;
+      height: 300px;
+  }
+}
+
+.bounds {
+  width: 86.4%;
+  height: 76.9%;
+  margin: 23.2% 0 0 6.2%;
+  overflow: scroll;
+}
+
+.title {
+  width: 96%;
+  margin-left: 2%;
+  text-align: center;
+}
+
+.preview {
+  margin: 5px 0 0 2.75%;
+}
+
+.text {
+  width: 96%;
+  margin-top: 5px;
+  margin-left: 2%;
+}

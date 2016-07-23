@@ -1,0 +1,21 @@
+.categoryView {
+
+}
+.cell {
+  background-color: white;
+  border: 1px solid #eeeeee;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  min-height: 80px;
+}
+.cell:hover {
+  box-shadow: 1px 1px 1px #dddddd;
+}
+.cell > .title {
+  text-align: center;
+}
+
+.btn {
+  margin-right: 5px;
+}
