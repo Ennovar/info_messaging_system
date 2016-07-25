@@ -4,4 +4,4 @@ services:
     build: ./client
     command: npm run start:prod
     ports:
-      - "80:3000"
+      - "3000:3000"
