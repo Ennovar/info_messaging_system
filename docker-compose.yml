@@ -2,6 +2,6 @@ version: '2'
 services:
   client:
     build: ./client
-    command: bash -c "npm run build && npm run start:prod"
+    command: npm run start:prod
     ports:
       - "80:3000"
