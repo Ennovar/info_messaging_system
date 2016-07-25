@@ -46,6 +46,9 @@ class ProjectList extends Component {
           onClick={() => this.openModal(project.id, i)}
         >
           <h4 className={styles.title}>{project.title}</h4>
+          <p className="text-center">
+            <code>{project.project_hash}</code>
+          </p>
         </div>
       ));
       return projectList;
@@ -64,6 +67,7 @@ class ProjectList extends Component {
           onHide: this.closeModal,
         },
         message: this.props.projects[this.state.index].message,
+        hash: this.props.projects[this.state.index].project_hash,
         updateMessage: this.updateMessage,
         id: this.state.id,
       };

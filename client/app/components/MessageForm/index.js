@@ -48,6 +48,10 @@ export class MessageForm extends Component { // eslint-disable-line react/prefer
       <div>
         <Modal {...this.props.modal}>
           <Modal.Header closeButton>
+            <label>Project Hash</label>
+            <p>
+              <code>{this.props.hash}</code>
+            </p>
             <label>Title</label>
             <input className="form-control" type="text" value={this.state.new === null ? this.state.original.title: this.state.new.title} onChange={(e) => this.onTitleChange(e)} />
           </Modal.Header>
@@ -73,6 +77,7 @@ export class MessageForm extends Component { // eslint-disable-line react/prefer
 
 MessageForm.propTypes = {
   id: PropTypes.number,
+  hash: PropTypes.string,
   modal: PropTypes.object,
   message: PropTypes.object,
 };
