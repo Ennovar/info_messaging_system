@@ -13,10 +13,7 @@ import { bindActionCreators } from 'redux';
 
 // Project imports
 import selectAdminDashboard from './selectors';
-// import AdminList from '../../components/AdminList';
-// import CollectionView from '../../components/CollectionView';
 import ProjectList from '../../components/ProjectList';
-import CategoryForm from '../../components/CategoryForm';
 import {
   getProject,
   getProjects,
@@ -57,10 +54,6 @@ export class AdminDashboard extends Component { // eslint-disable-line react/pre
         show: this.state.modalIsOpen,
         onHide: this.closeModal,
       },
-      categoryForm: {
-        category: this.state.selectedCategory,
-        submit: this.createNewCategory,
-      },
       projectList: {
         projects: this.props.projects,
         project: this.props.project,
@@ -84,17 +77,6 @@ export class AdminDashboard extends Component { // eslint-disable-line react/pre
             <ProjectList {...props.projectList} />
           </div>
         </div>
-
-        {/* Modal for new category */}
-        <Modal {...props.modal}>
-          <Modal.Header closeButton>
-            Project Message
-          </Modal.Header>
-          <Modal.Body>
-            Project Body
-          </Modal.Body>
-        </Modal>
-        {/* END modal */}
       </div>
     );
   }

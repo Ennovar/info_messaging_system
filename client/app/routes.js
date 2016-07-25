@@ -54,50 +54,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: 'admin/categories/:category_id',
-      name: 'categoriesList',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/CategoriesList/reducer'),
-          System.import('containers/CategoriesList/sagas'),
-          System.import('containers/CategoriesList'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('categoriesList', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
-      path: 'admin/posts/:post_id',
-      name: 'postView',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/PostView/reducer'),
-          System.import('containers/PostView/sagas'),
-          System.import('containers/PostView'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('postView', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
       path: '*',
-
-
-
       name: 'notfound',
       getComponent(nextState, cb) {
         System.import('containers/NotFoundPage')

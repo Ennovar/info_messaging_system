@@ -10,13 +10,13 @@ import { Modal } from 'react-bootstrap';
 import styles from './styles.css';
 
 
-export class ProjectForm extends Component { // eslint-disable-line react/prefer-stateless-function
+export class MessageForm extends Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
 
     this.state = {
       original: {},
-      new: {},
+      new: null,
     };
 
     this.onCheckboxClick = this.onCheckboxClick.bind(this);
@@ -27,7 +27,11 @@ export class ProjectForm extends Component { // eslint-disable-line react/prefer
   }
 
   onCheckboxClick() {
-    this.setState({ new: { ...this.state.new, active: !this.state.new.active } });
+    if (this.state.new !== null) {
+      this.setState({ new: { ...this.state.new, active: !this.state.new.active } });
+    } else {
+      this.setState({ new: { ...this.state.new, active: !this.state.original.active } });
+    }
   }
 
   onTitleChange(e) {
@@ -45,15 +49,15 @@ export class ProjectForm extends Component { // eslint-disable-line react/prefer
         <Modal {...this.props.modal}>
           <Modal.Header closeButton>
             <label>Title</label>
-            <input className="form-control" type="text" value={this.state.new === {} ? this.state.original.title: this.state.new.title} onChange={(e) => this.onTitleChange(e)} />
+            <input className="form-control" type="text" value={this.state.new === null ? this.state.original.title: this.state.new.title} onChange={(e) => this.onTitleChange(e)} />
           </Modal.Header>
           <Modal.Body>
             <div className="clearfix">
               <label>Body</label>
-              <input className="form-control" type="text" value={this.state.new === {} ? this.state.original.body: this.state.new.body} onChange={(e) => this.onBodyChange(e)} />
+              <input className="form-control" type="text" value={this.state.new === null ? this.state.original.body: this.state.new.body} onChange={(e) => this.onBodyChange(e)} />
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" checked={this.state.new === {} ? this.state.original.active: this.state.new.active} onChange={this.onCheckboxClick} /> Active
+                  <input type="checkbox" checked={this.state.new === null ? this.state.original.active: this.state.new.active} onChange={this.onCheckboxClick} /> Active
                 </label>
               </div>
               <div className="pull-right">
@@ -67,10 +71,10 @@ export class ProjectForm extends Component { // eslint-disable-line react/prefer
   }
 }
 
-ProjectForm.propTypes = {
+MessageForm.propTypes = {
   id: PropTypes.number,
   modal: PropTypes.object,
   message: PropTypes.object,
 };
 
-export default ProjectForm;
+export default MessageForm;

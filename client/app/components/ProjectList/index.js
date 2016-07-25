@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 
 // Project imports
-import ProjectForm from '../../components/ProjectForm';
+import MessageForm from '../../components/MessageForm';
 import styles from './styles.css';
 
 class ProjectList extends Component {
@@ -17,6 +17,7 @@ class ProjectList extends Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
   }
 
   openModal(id, index) {
@@ -30,8 +31,12 @@ class ProjectList extends Component {
     this.setState({ modalIsOpen: false });
   }
 
+  updateMessage(state, id) {
+    this.props.updateMessage(state, id);
+    this.closeModal();
+  }
+
   renderProjects() {
-    console.log(this.props.projects);
     if (this.props.projects) {
       const { projects } = this.props;
       const projectList = projects.map((project, i) => (
@@ -59,7 +64,7 @@ class ProjectList extends Component {
           onHide: this.closeModal,
         },
         message: this.props.projects[this.state.index].message,
-        updateMessage: this.props.updateMessage,
+        updateMessage: this.updateMessage,
         id: this.state.id,
       };
     }
@@ -67,7 +72,8 @@ class ProjectList extends Component {
     return (
       <div className="row">
         {this.renderProjects()}
-        {this.state.modalIsOpen && <ProjectForm {...props} />}
+        {this.state.modalIsOpen &&
+          props.message && <MessageForm {...props} />}
       </div>
     );
   }
