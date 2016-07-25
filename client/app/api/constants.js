@@ -3,7 +3,6 @@
 
 // export const BASE_URL = 'http://localhost:8000/';
 export const BASE_URL = 'http://192.241.158.133:8888';
-// export const BASE_URL = 'http://10.16.20.22:8000';
 
 
 export const GET_ROOT_CATEGORIES = '@api/GET_ROOT_CATEGORIES';

@@ -4,8 +4,8 @@ services:
     build: ./database_image
   api:
     build: ./
-    command: rails s -p 8000 -b 0.0.0.0
+    command: rails s -p 8888 -b 0.0.0.0
     ports:
-      - "8000:8000"
+      - "8888:8888"
     depends_on:
       - db
