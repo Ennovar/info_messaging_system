@@ -1,17 +1,17 @@
 version: '2'
 services:
   db:
-    build: ./db
+    build: ./api/database_image
   api:
     build: ./api
-    command: rails s -p 8888 -b 0.0.0.0
+    command: rails s -p 8000 -b 0.0.0.0
     ports:
-      - "8888:8888"
+      - "8000:8000"
     depends_on:
       - db
   client:
     build: ./client
-    command: npm start
+    command: npm run start:prod
     ports:
       - "3000:3000"
     depends_on:
