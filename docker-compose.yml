@@ -4,15 +4,15 @@ services:
     build: ./api/database_image
   api:
     build: ./api
-    command: rails s -p 8080 -b 0.0.0.0
+    command: rails s -p 8888 -b 0.0.0.0 -e production
     ports:
-      - "8080:8080"
+      - "8888:8888"
     depends_on:
       - db
   client:
     build: ./client
     command: npm run start:prod
     ports:
-      - "3000:3000"
+      - "5555:3000"
     depends_on:
       - api

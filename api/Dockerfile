@@ -1,5 +1,5 @@
 FROM ruby:2.2.2
-EXPOSE 8080
+EXPOSE 8888
 RUN apt-get update -qq && apt-get install -y build-essential
 
 # for postgres
