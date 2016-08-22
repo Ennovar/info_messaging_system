@@ -5,11 +5,10 @@ class Project < ApplicationRecord
 	def create_hashkey
 		if new_record?
 			self.project_hash = SecureRandom.base64(8).gsub("/","_").gsub(/=+$/,"")
+			self.message = Message.create()
 		end
 	end
 	def create_message
-		self.message = Message.create()
-		self.save
 	end
 
 	def show
